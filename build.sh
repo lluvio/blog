@@ -1,2 +1,2 @@
 #!/bin/bash
-./hugo -v
+./hugo-linux64 -v
