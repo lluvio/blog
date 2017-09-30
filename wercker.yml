@@ -11,8 +11,8 @@ build:
           ls -haltr /pipeline/source/public
 deploy:
   steps:
-    # - install-packages:
-    #     packages: git ssh-client 
+    - install-packages:
+        packages: git ssh-client 
     - lukevivier/gh-pages@0.2.1:
         token: $TOKEN
         basedir: public
