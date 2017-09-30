@@ -1,0 +1,11 @@
+baseURL = "https://lluvio.github.io/blog/"
+languageCode = "en-us"
+title = "Lluvio's blog"
+theme = "paperback"
+
+[params]
+AuthorName = "Lluvio"
+Tagline = "Hello, world!"
+HomepagePosts = 10
+GithubUsername = "lluvio"
+# TwitterUsername = "damiencaselli"
