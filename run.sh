@@ -16,3 +16,4 @@ if [ $? -ne 0 ]; then
 else
   success "pushed to github pages"
 fi
+# test
