@@ -138,18 +138,27 @@ footer, .site-nav {
   color: #888888;
 }
 
-  footer a, .site-nav a {
-    color: currentColor;
-  }
+footer a, .site-nav a {
+  color: currentColor;
+}
 
-  footer > *+*, .site-nav > *+* {
-    margin-left: .5rem;
-  }
+footer > *+*, .site-nav > *+* {
+  margin-left: .5rem;
+}
+
+table {
+  width: 100%;
+}
+
+td, th {
+  padding: 10px 20px;
+  text-align: left;
+  border: 1px solid #ccc;
+}
 
 .container {
-  max-width: 34rem;
-  width: 100%;
-  margin: 0 auto;
+  margin-left: 5%;
+  margin-right: 5%;
 }
 
 .site-nav {

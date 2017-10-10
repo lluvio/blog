@@ -12,9 +12,15 @@
         {{ .Content }}
       </article>
 
+
+      {{ partial "disqus" . }}
+
+      {{ partial "disqus-counter" . }}
+
       {{ partial "nav.html" . }}
 
       {{ partial "footer.html" . }}
+
 
     </div>
 
