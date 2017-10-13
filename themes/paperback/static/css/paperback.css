@@ -46,12 +46,7 @@ blockquote cite:before {
 a {
   color: currentColor;
   text-decoration: none;
-  border-bottom: 1px solid currentColor;
 }
-  a:hover {
-    text-decoration: none;
-    border-bottom: 0;
-  }
 
 ol, ul {
   margin: 0 0 1rem 1.25rem;
@@ -89,6 +84,10 @@ kbd, code {
 
 article, section {
   margin-bottom: 1rem;
+}
+
+article p a {
+    border-bottom: 1px solid currentColor;
 }
 
 h1 {
@@ -140,6 +139,7 @@ footer, .site-nav {
 
 footer a, .site-nav a {
   color: currentColor;
+  text-decoration: underline;
 }
 
 footer > *+*, .site-nav > *+* {
@@ -170,9 +170,16 @@ td, th {
 }
 
 .openToc {
-    position: fixed;
-    right: 0;
-    top: 0;
+  position: fixed;
+  right: 2%;
+  top: 0;
+}
+
+.closeToc {
+  width: 100%;
+  display: inline-block;
+  background: #FF5455;
+  text-align: center;
 }
 
 #tocModal {
@@ -185,5 +192,16 @@ td, th {
   position: fixed;
   top: 0;
   right: 0;
+
 }
 
+#TableOfContents {
+  height: calc(100vh - 25px);
+  overflow-y: scroll;
+}
+
+/* 修复 table of centents 默认会把 h1 显示出来*/
+#TableOfContents > ul {
+  margin: 1rem;
+  list-style: none;
+}
