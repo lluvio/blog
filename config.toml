@@ -8,5 +8,11 @@ AuthorName = "Lluvio"
 Tagline = "Hello, world!"
 HomepagePosts = 10
 GithubUsername = "lluvio"
+<<<<<<< HEAD
 disqus = "lluviosblog"
 toc = true
+=======
+disqus = "lluvio0909"
+
+# TwitterUsername = "damiencaselli"
+>>>>>>> parent of ca19714... update disqus name
