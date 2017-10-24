@@ -74,7 +74,7 @@ node module 遵循unix的思想&#x2013;do one thing and do it well，也因此�
 
 ### 编码规范
 
-长命名使用驼峰式。类使用 \`ClassName\`，而方法名或属性使用 \`classProperty\`
+长命名使用驼峰式。类使用 `ClassName`，而方法名或属性使用 `classProperty`
 
 
 ### 协作工具
@@ -136,7 +136,7 @@ node module 遵循unix的思想&#x2013;do one thing and do it well，也因此�
 -   [ ] saucellabs，跨浏览器集成测试
 
 
-# 前端技术选型
+## 前端技术选型
 
 基于以上工程化流程，技术选型如下：
 
@@ -152,28 +152,28 @@ node module 遵循unix的思想&#x2013;do one thing and do it well，也因此�
 -   前后端通信 json-rpc/swagger/graphql(查询)
 
 
-# 前端项目配置
+## 前端项目配置
 
 
-## css
+### css
 
 
-### reset
+#### reset
 
 css reset 采用 normalize.css
 
 
-### 布局
+#### 布局
 
 不考虑兼容的情况下，一维用 flexbox，二维用 css grid，单位 rem/vm vw，更改盒模型为 box-sizing减少padding和border的计算；考虑兼容性则使用 bootstrap3 提供的grid布局方案
 
 
-### 动画库
+#### 动画库
 
 hover，animate.css，velocity
 
 
-### sass
+#### sass
 
 sass 存在 Duplicate import problem
 
@@ -334,7 +334,7 @@ function(t, e, n) {
 已经没有bar了
 
 
-## babel
+### babel
 
 在项目下创建一个 `.babelrc` 的配置文件。目前通过插件babel主要提供了以下几个功能
 
@@ -343,20 +343,20 @@ function(t, e, n) {
 3.  使用 es6/7 语法及特性
 
 
-## 性能
+### 性能
 
 
-### 图片
+#### 图片
 
 -   预加载 例如用户输入账号的时候通过 `new Image()` 预先加载图片
 -   cdn服务
 
 
-## 前端常用库
+### 前端常用库
 
 待补充
 
 
-# 最后
+## 最后
 
 附上一个后台项目 [demo](https://github.com/lluvio/vue-element)

@@ -1,8 +1,9 @@
 ---
-title: "为 Vue 编写一个插件2"
+title: "为 Vue 编写一个插件"
 description: "Description of the post"
 date: 2017-03-23
 ---
+
 
 以编写Vue日志插件为例，讲述从插件的开发到部署。
 
