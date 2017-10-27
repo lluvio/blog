@@ -1,4 +1,3 @@
-# SVG的使用与提升
 
 如果您已经知道如何使用JavaScript和HTML进行网络编程，学习曲线将变得相当温和，特别是考虑到获得的好处。- [David Dailey](http://www.w3.org/Graphics/SVG/IG/resources/svgprimer.html)
 

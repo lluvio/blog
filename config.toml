@@ -9,3 +9,4 @@ Tagline = "Hello, world!"
 HomepagePosts = 10
 GithubUsername = "lluvio"
 disqus = "lluviosblog"
+toc = true
