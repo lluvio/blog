@@ -1,13 +1,12 @@
+> 如果您已经知道如何使用JavaScript和HTML进行Web编程，那么学习曲线将非常平缓，特别是考虑到将获得的好处。- [David Dailey](http://www.w3.org/Graphics/SVG/IG/resources/svgprimer.html)
 
-如果您已经知道如何使用JavaScript和HTML进行网络编程，学习曲线将变得相当温和，特别是考虑到获得的好处。- [David Dailey](http://www.w3.org/Graphics/SVG/IG/resources/svgprimer.html)
+欢迎阅读《SVG的使用与提升》。这是与同名Mijingo视频课程一起出版的书面教程。如果您想观看我们的100多分钟视频课程来学习更快，可以从Mijingo网站上获取。
 
-欢迎*使用SVG运行*。这是与同名的Mijingo视频课程一起出版的书面教程。如果您想使用我们的100多分钟视频课程学习更快，可以从Mijingo网站上获取。
+否则，请按你认为合适的顺序阅读。这门课是按顺序阅读完成的，但你可能是为了某件具体的事情而来的。您可以通过左边的目录列表快速定位您要查找的内容。
 
-否则，请阅读您认为适合的任何订单。该课程是按顺序阅读和完成的，但您可能会在此处了解具体内容。目录列在主页上，如果您需要快速找到您要查找的内容。
+最后有一个非常重要的部分，其中包含了几十个[SVG高质量的资源链接](http://svgtutorial.com/additional-tools-and-resources)。不要错过，特别是如果您已经熟悉SVG。
 
-最后有一个非常重要的部分，其中包含了几十个链接到[SVG上更高质量的资源](http://svgtutorial.com/additional-tools-and-resources)。不要错过，特别是如果您已经熟悉SVG。
-
-本课程分为几个部分。我们将慢慢学习一些SVG，然后使用 Adobe Illustrator 创建我们的第一个 SVG 文件。之后，我们将跳入代码，绘制坐标系上的一些点，使形状变得生动。我们将通过使用 CSS 和 JavaScript 操作 SVG 来构建，然后看到浏览器支持和性能可能面临的一些挑战。
+本课程分为几个部分。我们将慢慢学习一些SVG，然后使用 Adobe Illustrator 创建我们的第一个 SVG 文件。之后，我们将跳入代码，绘制坐标系上的一些点，使形状变得生动。我们将通过使用 CSS 和 JavaScript 操作 SVG 来构建，然后看看我们可能面临的一些挑战，比如浏览器支持和性能。
 
 准备好了？我们继续吧！
 
