@@ -102,8 +102,11 @@ h2, h3, h4, h5, h6 {
 
 h2 {
   font-size: 2rem;
-  border-bottom: 1px solid #e2e2e2;
   box-shadow: 0 1px 0px 0 #eee;
+}
+
+h2 a {
+  border-bottom: none;
 }
 
 h3 {
@@ -139,7 +142,6 @@ footer, .site-nav {
 
 footer a, .site-nav a {
   color: currentColor;
-  text-decoration: underline;
 }
 
 footer > *+*, .site-nav > *+* {
