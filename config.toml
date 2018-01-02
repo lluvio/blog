@@ -2,6 +2,7 @@ baseURL = "https://lluvio.github.io/blog/"
 languageCode = "en-us"
 title = "Lluvio's blog"
 theme = "paperback"
+canonifyURLs= true
 
 [params]
 AuthorName = "Lluvio"
