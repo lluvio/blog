@@ -87,7 +87,7 @@ article, section {
   margin-bottom: 1rem;
 }
 
-article p a {
+article a {
     border-bottom: 1px solid currentColor;
 }
 
