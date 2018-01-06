@@ -1,10 +1,10 @@
 {
-  users: [
+  "users": [
     {
-      id: 2222222
+      "nickName": "草头诗人"
     },
     {
-      id: 33434
-    },
+      "nickName": "Happy伊利"
+    }
   ]
 }
