@@ -1,5 +1,5 @@
 ---
-title: "Svg Sprite 的使用及具体的性能提升"
+title: "Svg Sprite 的使用及性能提升"
 description: "Description of the post"
 date: 2018-10-24
 ---
