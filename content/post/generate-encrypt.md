@@ -161,29 +161,23 @@ ssl.CertificateError: hostname 'example1.com' doesn't match 'example2.com'
 最终的 nginx 配置可以优化如下
 
 ```nginx
+# 切记，主机防火墙
 server {
-	listen 443 ssl;
-	server_name yoursite.com;
-	ssl_certificate     /home/xxx/ssl/chained.pem;
-	ssl_certificate_key /home/xxx/ssl/domain.key;
-	
-  	# 告知 Let's Enscript 我们拥有服务器的使用权
-    location ^~ /.well-known/acme-challenge/ {
-        alias /home/xxx/www/challenges/;
-        try_files $uri =404;
-    }
-
-    location / {
-		root /	var/www/html;
-		index index.html index.nginx-debian.html;
-    }
-}
-
-# 大部分用户输入的网站默认走的是 80 端口，我们这里要 rewrite 到 https 地址
-server {  
-    listen 80;
-    server_name yoursite.com;
-    rewrite ^(.*)$  https://$host$1 permanent;  
+  listen 80;
+  listen 443 ssl;
+  server_name lluvio.cn;
+  index index.html;
+  ssl_certificate cert/2311607_lluvio.cn.pem; #你的证书的位置
+  ssl_certificate_key cert/2311607_lluvio.cn.key; #你的证书key的位置
+  root /var/www/wd-front/dist;
+  location /api/ {
+      # rewrite ^.+api/?(.*)$ /$1 break; # break代表匹配一个之后停止匹配。
+      proxy_set_header Host $host;
+      proxy_pass  http://0.0.0.0:3001; # 注意，proxy_pass 地址后面不可以手动添加地址，否则无效。
+  }
+  if ($server_port = 80 ) { # 大部分用户输入的网站默认走的是 80 端口，我们这里要 rewrite 到 https 地址
+     return 301 https://$host$request_uri;
+  }
 }
 ```
 
@@ -209,11 +203,5 @@ systemctl reload nginx
 ## 备注
 
 * 主机防火墙请打开 443 端口
-
-
-
-
-参考链接
-
 * [Let's Encrypt，免费好用的 HTTPS 证书](https://imququ.com/post/letsencrypt-certificate.html)
 
