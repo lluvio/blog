@@ -206,6 +206,9 @@ cat signed.crt intermediate.pem > chained.pem
 systemctl reload nginx
 ```
 
+## 备注
+
+* 主机防火墙请打开 443 端口
 
 
 
