@@ -1,8 +1,4 @@
-
-<aside>
-	<a class="openToc" href="#tocModal">☰</a>
-	<div id="tocModal">
-		<a class="closeToc" href="#">Exit</a>
-   		 {{ .TableOfContents }}
-	</div>
+<aside class="toc">
+	<a class="toc__home" href="{{ .Site.BaseURL }}">回首页</a>
+	{{ .TableOfContents }}
 </aside>
