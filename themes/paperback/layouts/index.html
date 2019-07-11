@@ -8,15 +8,15 @@
 
       {{ partial "header.html" . }}
 
-      <section>
+      <table class="site-index">
 
         {{ range first (index .Site.Params.HomepagePosts | default 3) (where .Data.Pages "Type" "post") }}
-        <article>
-          {{ .Render "list-item-expanded" }}
-        </article>
+        <tr>
+          <td>{{ .Render "list-item" }}</td>
+        </tr>
         {{ end }}
 
-      </section>
+      </table>
 
       {{ partial "nav.html" . }}
 

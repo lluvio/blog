@@ -13,6 +13,10 @@ body {
   line-height: 1.6;
 }
 
+p {
+  margin: 0px;
+}
+
 hr {
   margin: 2rem 0;
   height: 0;
@@ -87,10 +91,6 @@ article, section {
   margin-bottom: 1rem;
 }
 
-article a {
-    border-bottom: 1px solid currentColor;
-}
-
 h1 {
   margin: 0 0 1rem;
   font-size: 1.875rem;
@@ -102,7 +102,6 @@ h2, h3, h4, h5, h6 {
 
 h2 {
   font-size: 2rem;
-  box-shadow: 0 1px 0px 0 #eee;
 }
 
 h2 a {
@@ -125,7 +124,7 @@ h6 {
   font-size: 1rem;
 }
 
-p {
+article p {
   margin: 0 0 1rem;
 }
 
@@ -148,19 +147,36 @@ footer > *+*, .site-nav > *+* {
   margin-left: .5rem;
 }
 
-table {
-  width: 100%;
-}
-
 td, th {
   padding: 10px 20px;
   text-align: left;
   border: 1px solid #ccc;
 }
 
+.site-index {
+  border-collapse: collapse;
+  width: 560px;
+  font-size: 16px;
+}
+
+.site-index tr {
+  cursor: pointer;
+}
+
+.site-index tr:hover {
+  transition: .5s;
+  background-color: #fff;
+  text-decoration: underline;
+}
+
+.site-index td p {
+  display: flex;
+  align-items: center;
+}
+
 .container {
-  margin-left: 5%;
-  margin-right: 5%;
+  margin: 0 auto;
+  max-width: 890px;
 }
 
 .site-nav {
