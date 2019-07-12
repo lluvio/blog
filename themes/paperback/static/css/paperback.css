@@ -214,8 +214,14 @@ td, th {
 }
 
 .toc {
-  position: absolute;
-  right: -120px;
+  padding: 10px;
+  margin: 0 10px 10px 10px;
+  max-height: 400px;
+  width: 350px;
+  overflow-y: scroll;
+  float: right;
+  border-radius: 4px;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #aad2f0), color-stop(1, #8bc1ed));
 }
 
 .toc ul {
