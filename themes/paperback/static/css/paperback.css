@@ -215,7 +215,7 @@ td, th {
 
 .toc {
   position: absolute;
-  right: -150px;
+  right: -120px;
 }
 
 .toc ul {
@@ -224,4 +224,10 @@ td, th {
 
 .toc ul ul {
   padding-left: 1rem;
+}
+
+.toc__back-home {
+  display: flex;
+  padding-left: 1rem;
+  margin-bottom: 1rem;
 }
