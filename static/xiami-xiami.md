@@ -485,13 +485,13 @@ mac 下的虾米音乐，之前一直都是 oc 写的，后来某个版本改用
 
 不难发现，`虾米音乐.sh` 应该是入口文件，但这里不是我们要考虑的重点，因为这个文件太小，对于使用 `electron` 开发的程序，文件体积一定不小。`Resources` 文件夹打开我们会发现一些 `*.asar` 后缀的文件，这类文件通过搜索发现是由工具 [asar](https://github.com/electron/asar) 压缩而成，能压缩说明也能解压。看了下 `asar`相关的使用说明，发现只要一条命令就可以解压
 
-```shell
+```bash
 asar extract app.asar destfolder 
 ```
 
 `asar` 需要自行安装
 
-```shell
+```bash
 npm install asar -g
 ```
 

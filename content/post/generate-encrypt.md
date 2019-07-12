@@ -39,7 +39,7 @@ date: 2018-10-24
 
 由于HTTP是明文传输，使用HTTPS可以有效的防止HTTP产生的监听、流量劫持等问题。相信大家都经历过百度搜索被插入 运营商广告的的情况。Https主要解决以下三个问题，这里不作拓展。
 
-- **数据的保密性 **
+- **数据的保密性**
 - **数据的完整性** （内容HASH后加密，防止被篡改）
 - **数据有效性** （分布式拒绝[服务](https://baike.baidu.com/item/%E6%9C%8D%E5%8A%A1)(DDoS:Distributed Denial of Service）
 
@@ -84,7 +84,7 @@ Let's Encript 是一个免费的，自动的，公开的认证机构（CA），�
 
 
 
-```shell
+```bash
 # 创建文件夹，存放各种密钥
 mkdir -p www/challenges
 mkdir ssl && cd ssl
@@ -99,7 +99,6 @@ openssl genrsa 4096 > domain.key
 
 # 生成 域名证书，一个证书可以包含 100 个域名，注意，这里的域名必须在同一个顶级域名下
 openssl req -new -sha256 -key domain.key -subj "/" -reqexts SAN -config <(cat /etc/ssl/openssl.cnf <(printf "[SAN]\nsubjectAltName=DNS:yoursite.com,DNS:api.yoursite.com,DNS:wx.yoursite.com,DNS:file.yoursite.cn")) > domain.csr
-
 ```
 
 接下来我们要配置 nginx
@@ -124,7 +123,7 @@ server {
 
 使用 acme-tiny，它是用于申请 Let's Enscript 轻量级的脚本
 
-```shell
+```bash
 # 下载 acme-tiny
 wget https://raw.githubusercontent.com/diafygi/acme-tiny/master/acme_tiny.py
 
@@ -141,7 +140,7 @@ cat signed.crt intermediate.pem > chained.pem
 
 最终生成的文件如下
 
-```shell
+```bash
 $ ls
 account.key  acme_tiny.py  chained.pem	domain.csr  domain.key	intermediate.pem  signed.crt
 ```
@@ -187,7 +186,7 @@ server {
 
 Let's Encrypt 签发的证书有效期只有90天，甚至希望缩短到60天。有效期越短，泄密后可供监控的窗口就越短。为了支撑这么短的有效期，就必须自动化验证和签发。因为自动化了，长远而言，维护反而比手动申请再安装要简单。其实是这也是为了鼓励用户采用自动化部署方案。这里自动更新的脚本如下，可以结合 crontab 每隔一段时间进行更新 
 
-```shell
+```bash
 #!/bin/bash
 cd /home/xxx/www/ssl/
 

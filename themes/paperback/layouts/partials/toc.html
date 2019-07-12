@@ -1,4 +1,7 @@
 <aside class="toc">
-	<a class="toc__back-home" href="{{ .Site.BaseURL }}">回首页</a>
+	<div class="toc__header">
+		<span class="toc__toggle">目录</span>
+		<a class="toc__back-home" href="{{ .Site.BaseURL }}">回首页</a>
+	</div>
 	{{ .TableOfContents }}
 </aside>
