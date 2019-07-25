@@ -12,7 +12,7 @@
 
         {{ range first (index .Site.Params.HomepagePosts | default 3) (where .Data.Pages "Type" "post") }}
         <tr>
-          <td>{{ .Render "list-item" }}</td>
+          <td><span style="font-size: 12px">》</span> {{ .Render "list-item" }}</td>
         </tr>
         {{ end }}
 

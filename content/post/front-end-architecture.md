@@ -6,357 +6,130 @@ date: 2017-04-23
 
 
 
-在知乎上看到 [赵雨森同学](https://www.zhihu.com/question/24558375) 提到前端工程化有四个方面，模块化、组件化、规范化、自动化，本人十分赞同，我在工作中也慢慢这几个方向作出了总结
+本人在实际工作中慢慢总结出来的项目组织结构小结，望对大家有帮助
 
 <!--more-->
 
+在团队开发上，大的方面往往是考虑以下两个，敲定后后续都是往优化方面发展
 
-## 模块化
+1. 决定基本的技术栈
+2. 选定 组件库（企业内部或第三方），统一交互与视觉风格。
 
-模块化只是在语言层面上，对代码的拆分；而组件化是基于模块化，在设计层面上，对UI（用户界面）的拆分
+任何程序都逃脱不了输入(Input)、处理（Process）、输出（Output），这个概念放到项目开发中也是适用的，我们输入的是代码，通过编译处理，输出我们想要的结果。接下来我们就讲讲 IPO（上市？？）
 
 
-### js 的模块化
 
-现在ES6已经在语言层面上规定了模块系统，完全可以取代现有的CommonJS和AMD规范，而且使用起来相当简洁
+## 1、输入
 
--   webpack + babel 将所有模块打包成一个文件加载
--   systemjs 分模块异步加载
+我们需要考虑输入的方面有程序语言、框架、图片、字体、动画以及第三方库，根据以上我们可以考虑以下方案：
 
+>  程序语言：Typescript / Javascript
+>
+>  前端框架：Vue
+>
+>  字体：SVG
+>
 
-### css 的模块化
 
-目前使用了这三方式处理:
 
--   使用 vuejs 的scoped style
--   [ ] 采用一命名风格，推荐 BEM
--   采用一css预处理器，目前使用sass
+## 2、处理
 
+处理即编译，涉及到 Babel 和 Webpack。
 
-## 组件化
+Babel 主要是将涉及新特性的 Javascript 代码转化为指定平台兼容的代码，例如 ES6/ES7 编译为 ES5。
 
-组件化是基于模块化的，因为组件的单位可以有模板，样式加逻辑。
+Webpack 则可以对多种资源或代码进行多样化处理。
 
-另，将你所能看见到的视图(UI)进行合理拆分得到的单元，并能让它达到可复用程度，可称之为组件。组件的方案采用 vuejs 的单文件组件
+下面分别举几个常见的处理
 
 
-## 规范化
 
-为了更好的落实开发，可以制定一些规范
+### 2.1、Webpack
 
-
-### 编码规范
-
-1.  js使用eslint，目前采用 google 的 javascript style guide
-2.  css使用相应的stylelint
-3.  使用editorconfig，统一编辑器或ide的一些设定，如js缩进为2空格
-
-
-### 前后端接口规范
-
-采用 restful 风格，接口描述使用swagger
-
-对于某些接口返回状态码还是中文结果，前端应尽量不让去判断状态，只作显示
-
-
-### 版本控制
-
-node module 遵循unix的思想&#x2013;do one thing and do it well，也因此单个上层的模块会依赖很多下层的模块，这可能会导致其中一个下层的模块改变，导致整个上层模块崩溃。
-
-**package.json 里的包版本号应写死，除非因某个包有了新需求特性，再去更新**
-
-
-### 目录结构
-
--   文件名一律小写，[参考](http://www.ruanyifeng.com/blog/2017/02/filename-should-be-lowercase.html)
--   采用就近原则
-
-
-### 编码规范
-
-长命名使用驼峰式。类使用 `ClassName`，而方法名或属性使用 `classProperty`
-
-
-### 协作工具
-
-这里指的是协作工具的采用
-
--   任务分配，trello/gitlab todo
--   代码仓库，gitlab
--   文档，gitlab wiki/trello
--   产品设计，sketch画图，inDesign写文档
-
-
-### 其它规范
-
--   开发环境。 推荐 unix，与部署环境统一，且前端许多工具对unix系友好
--   [ ] codereview
--   [ ] git提交描述规范，不规范就不允许提交
--   [ ] [中文技术文档的写作规范](https://github.com/ruanyf/document-style-guide)
-
-
-## 自动化
-
-
-### 环境控制
-
-使用docker自动化部署，集群使用 kubernetes(k8s)
-
-
-### 构建工具
-
-目前使用webpack/rollup
-
--   图标使用 svg sprite
--   浏览器自动刷新，热加载
--   编译中间语言，如 es6/7，sass
--   js、css的压缩及混肴
--   压缩图片，一定大小内使用base64
--   根据文件内容生成哈希值，实现缓存控制
--   实现按需加载，见模块化部分
--   umd 打包
-
-
-### 持续化集成
-
--   gitlab/git hook 实现 hook
--   jenkin/gitlab ci执行相应的构建脚本，并订阅构建结果
--   [ ] 将构建结果打包，交给运维部署
-
-
-### 项目徽章
-
-无论是开源项目还是私有项目都可以使用徽章查看状态
-
--   travis/circle，持续集成
--   codacy，代码审查
--   npm，提供版本号，下载量等
--   开源许可，一般采用 mit
--   [ ] codecov，代码覆盖率检测
--   [ ] saucellabs，跨浏览器集成测试
-
-
-## 前端技术选型
-
-基于以上工程化流程，技术选型如下：
-
--   基础库 vue
--   node中间层 koa
--   css预处理 sass
--   日志收集 sentry
--   前端测试框架 jasmine
--   构建工具 webpack/rollup
--   调试工具 chrome/ide/vue-dev-tools
--   后台进程管理 pm2
--   包管理工具 npm/yarn
--   前后端通信 json-rpc/swagger/graphql(查询)
-
-
-## 前端项目配置
-
-
-### css
-
-
-#### reset
-
-css reset 采用 normalize.css
-
-
-#### 布局
-
-不考虑兼容的情况下，一维用 flexbox，二维用 css grid，单位 rem/vm vw，更改盒模型为 box-sizing减少padding和border的计算；考虑兼容性则使用 bootstrap3 提供的grid布局方案
-
-
-#### 动画库
-
-hover，animate.css，velocity
-
-
-#### sass
-
-sass 存在 Duplicate import problem
-
-暂时没去解决，现有以下可以解决办法
-
--   Extract File
--   Webpack loader global
--   Webpack 去重代码(待证实)
--   cssnano(推荐)
-
-结论是尽量不要使用引用, variable或者function之类的可以使用
-
-参考地址 <http://ryerh.com/sass/2016/03/15/vue-webpack-duplicate-sass-import.html>
-
-
-## webpack
-
-
-### noParse
-
-webpack会花很多的时间查找一个库的依赖，使用该参数可以在webpack 中忽略对已知文件的解析
-
-例如，这里我们可以确定 vue 是没有依赖项的，配置如下
-
-```js
-// 支持正则匹配文件名
- module :{
-   noParse: {
-     'vue': './node_modules/vue/vue.min.js'
-   }
- }
-```
-
-这样我们在项目中可以使用
-
-```js
-import vue from 'vue'
-```
-
-
-### alias
-
-为引入模块提供别名，这个可以减少webpack去查找引入模块位置的时间，同时也为我们开发中引入公用模块提供方便
+为引入模块提供别名，减少 webpack 查找引入模块位置的时间
 
 ```js
 resolve: {
-    alias: {
-        'ui': path.resolve(__dirname, 'app/compontens/ui'),
-        'fonts': path.resolve(__dirname, 'app/assets/fonts')
-    }
+  alias: {
+    ui: path.resolve(__dirname, 'app/compontens/ui'),
+    fonts: path.resolve(__dirname, 'app/assets/fonts'),
+    vue: 'vue/dist/vue.esm.js',
+  }
 }
 ```
 
-以上配置可以让我们在需要引用公用组件时不必考虑目录层级的问题
+同时也为我们开发中引入公用模块提供方便
 
 ```js
+// JS
 import modal from 'ui/modal.vue'
-```
 
-css如果要使用webpack中的alias，需要在alias名前加上 `~`
-
-```css
+// CSS
 @font-face {
     url( "~fonts/iconfont.woff") format('woff')
 }
 ```
 
-
-### uglifyJs
+开发的时候我们肯定有使用 console 调试代码习惯，上线时却忘记去除
 
 ```js
-// 去除console
 new webpack.optimize.UglifyJsPlugin({
   compress: {
     warnings: false,
     pure_funcs: [ 'console.log', 'console.info' ]
   },
-}),
+})
 ```
 
+当然，我们也可以在上线前通过 ESLint 检测，检测出问题时再进行注释或删除，这或许比较麻烦
 
-### tree shaking
 
-让webpack理解es6 的导入机制，例如现在有两个文件
+
+### 2.2、Babel
+
+下面看个语法转换的例子
 
 ```js
-// utils.js
-export function foo() {
-    return 'foo';
+// input
+const talk = () => {
+  console.log('hello world')
 }
-export function bar() {
-    return 'bar';
-}
-// app.js
-import { foo } from './utils'
+
+// output
+var talk = function talk() {
+  console.log('hello world');
+};
 ```
 
-如果不使用 tree-shaking，app.js编译输出为
-
-```js
-/***/ function(module, exports) {
-
-  'use strict';
-
-  Object.defineProperty(exports, "__esModule", {
-    value: true
-  });
-  exports.foo = foo;
-  exports.bar = bar;
-  // utils.js
-  function foo() {
-    return 'foo';
-  }
-  function bar() {
-    return 'bar';
-  }
-
-/***/ }
-```
-
-可以看到上面包含了 foo 和 bar 两个函数，把utils里的内容全部打包进去了，如果使用tree-shaking，输出结果是这样的
-
-```js
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = foo;
-/* unused harmony export bar */
-// utils.js
-function foo() {
-  return 'foo';
-}
-function bar() {
-  return 'bar';
-}
-/***/ }),
-```
-
-我们可以看到哪些方法是没有被使用的，你可以通过 `--optimize-minimize` 参数压缩代码剔除未被使用的函数
-
-```js
-// 脚本
-  "scripts": {
-    "build": "webpack --optimize-minimize",
-    "seebuild": "webpack"
-  }
-
-// 通过格式工具查看到的结果
-function(t, e, n) {
-  "use strict";
-  function r() {
-    return "foo"
-  }
-  e.a = r
-}
-```
-
-已经没有bar了
 
 
-### babel
+## 3、输出
 
-在项目下创建一个 `.babelrc` 的配置文件。目前通过插件babel主要提供了以下几个功能
+处理得到结果再由 Webpack 输出，这么说其实输出也是处理的一部分。在业务上涉及的主要功能则是：
 
-1.  在vue中异步加载可将 system.import 转为 import()
-2.  使用 tree shaking
-3.  使用 es6/7 语法及特性
+1. 代码的压缩混淆（利用 uglifyjs）
+
+2. 文件 Hash 命名
+
+3. 模块按需分开打包（按需加载）
+
+4. Tree Shaking（例如 ES6 模块引入是静态解析的机制）
+
+   
+
+## 4、规范化
+
+IPO 制定完成之后，团队内基本已经有一套项目模板了，接下来注意力往往基建和规范化靠拢。
+
+-   CSS 上注意采用一命名风格，推荐 BEM
+-   采用统一的 ESLint 配置规则
+-   注意接口是否符合 Restful API 的要求（服务端同学有时候不按常理出牌）
+-   文件名一律小写，Git 在 Unix 和 Window 上对文件名大小写处理不一致，[参考](http://www.ruanyifeng.com/blog/2017/02/filename-should-be-lowercase.html)
+-   项目徽章
+-   性能错误监控
+-   发布系统
+-   and more
 
 
-### 性能
 
-
-#### 图片
-
--   预加载 例如用户输入账号的时候通过 `new Image()` 预先加载图片
--   cdn服务
-
-
-### 前端常用库
-
-待补充
-
-
-## 最后
-
-附上一个后台项目 [demo](https://github.com/lluvio/vue-element)
+附上一个实例 [demo](https://github.com/lluvio/vue-element)，未完待续

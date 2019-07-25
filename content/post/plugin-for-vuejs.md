@@ -10,7 +10,7 @@ date: 2017-03-23
 <!--more-->
 
 
-# 代码初始
+## 1、代码初始
 
 不用一步到位开发插件，先抛开 Vue保证自己的代码能够运行
 
@@ -38,7 +38,7 @@ logger.warn('aaaa')
 ```
 
 
-# 编写成Vue的插件
+## 2、编写成Vue的插件
 
 上面代码能跑了，然后再根据[ 文档](https://cn.vuejs.org/v2/guide/plugins.html) 接入我们的代码
 
@@ -76,7 +76,7 @@ export default vLogger
 ```
 
 
-# 使用
+## 3、使用
 
 ```js
 import vueLogger from './logger'
@@ -86,8 +86,7 @@ Vue.use(vueLogger, { prefix: new Date(), dev: true })
 this.$log.log('hello vue log') // => [MON DEC 05 2016 15:35:00 GMT+0800 (CST) :: LOG] hello world
 ```
 
-
-## 参数
+API如下
 
 | name   | type    | default                    |
 | ------ | ------- | -------------------------- |
@@ -96,7 +95,7 @@ this.$log.log('hello vue log') // => [MON DEC 05 2016 15:35:00 GMT+0800 (CST) ::
 | levels | array   | ['log', 'warn', 'default'] |
 
 
-# 编写测试用例
+## 4、编写测试用例
 
 使用jasmine，这里以测试参数 options 为例子
 
@@ -137,15 +136,18 @@ describe("this.$log", function() {
 ```
 
 
-# 部署
+
+## 5、部署
 
 
-## 如何选择开源许可证
+
+### 5.1、如何选择开源许可证
 
 参考阮老师的[文章](http://www.ruanyifeng.com/blog/2011/05/how_to_choose_free_software_licenses.html)
 
 
-## 添加项目徽章
+
+### 5.2、添加项目徽章
 
 通过这些微章简单直白的了解该项目的状态。 可以在这个[网站](http://shields.io/) 获取你想要svg，一般格式如下
 
@@ -160,7 +162,8 @@ describe("this.$log", function() {
 ```
 
 
-# 发布
+
+## 6、发布
 
 首先需要在本地添加 npm 用户
 
@@ -178,7 +181,8 @@ npm publish .
 如果想要指定特定标签，参考 [这里](https://docs.npmjs.com/cli/publish)
 
 
-## publish 失败
+
+### 6.1、Publish 失败
 
 出现以下错误，有可能是代理地址错误，每个命令后都需要带上 `--registry http://registry.npmjs.org`
 
@@ -189,6 +193,7 @@ no_perms Private mode enable, only admin can publish this module
 如果是这个错误 `Tag name must not be a valid SemVer range` ，那么需要你重现登入
 
 
-# 最后
+
+## 7、最后
 
 最终结果在[这里](https://github.com/Lluvio/vue-logger)， 欢迎指正!
