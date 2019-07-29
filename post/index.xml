@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Lluvio&#39;s blog</title>
+    <link>https://lluvio.github.io/blog/post/</link>
+    <description>Recent content in Posts on Lluvio&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 24 Oct 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://lluvio.github.io/blog/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>数字证书原理及生成</title>
+      <link>https://lluvio.github.io/blog/post/generate-encrypt/</link>
+      <pubDate>Wed, 24 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://lluvio.github.io/blog/post/generate-encrypt/</guid>
+      <description>&lt;p&gt;了解数字的原理及生成，对前端安全领域有一定的认识，HTTPS 是如何保证 CIA ，即保密性 （ Confidentiality）、完整性 （Integrity）、真实性（Authentication）。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>进程、线程及协程</title>
+      <link>https://lluvio.github.io/blog/post/process/</link>
+      <pubDate>Wed, 24 Oct 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://lluvio.github.io/blog/post/process/</guid>
+      <description>&lt;p&gt;了解进程、线程及协程对前端同学了解 IO 这块帮助极大，对从事 Node 开发的同学更是如此。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>前端项目架构小结</title>
+      <link>https://lluvio.github.io/blog/post/front-end-architecture/</link>
+      <pubDate>Sun, 23 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://lluvio.github.io/blog/post/front-end-architecture/</guid>
+      <description>&lt;p&gt;本人在实际工作中慢慢总结出来的项目组织结构小结，望对大家有帮助&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>为 Vue 编写一个插件</title>
+      <link>https://lluvio.github.io/blog/post/plugin-for-vuejs/</link>
+      <pubDate>Thu, 23 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://lluvio.github.io/blog/post/plugin-for-vuejs/</guid>
+      <description>&lt;p&gt;以编写Vue日志插件为例，讲述从插件的开发到部署。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Lluvio">
+  <meta name="generator" content="Hugo 0.55.6" />
+  <title>为 Vue 编写一个插件 — Lluvio&#39;s blog</title>
+
+  <meta name="description" content="Description of the post">
+  <link rel="canonical" href="https://lluvio.github.io/blog/post/plugin-for-vuejs/">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Arvo:400,700">
+  <link rel="stylesheet" href="https://lluvio.github.io/blog/css/highlight.css">
+  <link rel="stylesheet" href="https://lluvio.github.io/blog/css/paperback.css">
+</head>
+
+
+  <body>
+    <div class="container container__article">
+
+      <header>
+  <h1>为 Vue 编写一个插件</h1>
+
+  
+  <time datetime="2017-03-23 00:00:00 &#43;0000 UTC">2017/03/23</time>
+  
+
+  
+</header>
+
+
+      <aside class="toc">
+	<div class="toc__header">
+		<span class="toc__toggle">目录</span>
+		<a class="toc__back-home" href="https://lluvio.github.io/blog/">回首页</a>
+	</div>
+	<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#1-代码初始">1、代码初始</a></li>
+<li><a href="#2-编写成vue的插件">2、编写成Vue的插件</a></li>
+<li><a href="#3-使用">3、使用</a></li>
+<li><a href="#4-编写测试用例">4、编写测试用例</a></li>
+<li><a href="#5-部署">5、部署</a>
+<ul>
+<li><a href="#5-1-如何选择开源许可证">5.1、如何选择开源许可证</a></li>
+<li><a href="#5-2-添加项目徽章">5.2、添加项目徽章</a></li>
+</ul></li>
+<li><a href="#6-发布">6、发布</a>
+<ul>
+<li><a href="#6-1-publish-失败">6.1、Publish 失败</a></li>
+</ul></li>
+<li><a href="#7-最后">7、最后</a></li>
+</ul></li>
+</ul>
+</nav>
+</aside>
+      
+      
+      <article>
+        <p>以编写Vue日志插件为例，讲述从插件的开发到部署。</p>
+
+<h2 id="1-代码初始">1、代码初始</h2>
+
+<p>不用一步到位开发插件，先抛开 Vue保证自己的代码能够运行</p>
+
+<pre><code class="language-js">var logger = {
+  debug: false,
+  prefix: 'Yunhuni:'
+}
+
+let levels = ['log', 'info', 'warn']
+for (let level of levels) {
+ logger[level] = function() {
+  if (!this.debug) return;
+  if (typeof console == &quot;undefined&quot;) return;
+  var slice = Array.prototype.slice;
+  var args = slice.call(arguments, 0);
+  args.unshift(this.prefix + level);
+  console[level].apply(console, args);
+ }
+}
+
+logger.log('aaaa')
+logger.info('aaaa')
+logger.warn('aaaa')
+</code></pre>
+
+<h2 id="2-编写成vue的插件">2、编写成Vue的插件</h2>
+
+<p>上面代码能跑了，然后再根据<a href="https://cn.vuejs.org/v2/guide/plugins.html"> 文档</a> 接入我们的代码</p>
+
+<pre><code class="language-js">
+const vLogger = {}
+vLogger.install = function (Vue, options) {
+  if (vLogger.installed) return
+  var logger = {
+    dev: true,
+    prefix: '',
+    levels: ['log', 'warn', 'debug']
+  }
+  if (options) {
+    for (const key of Object.keys(options)) {
+      if (key === 'levels') {
+        logger[key] = logger[key].concat(options[key])
+      } else {
+        logger[key] = options[key]
+      }
+    }
+  }
+  for (const level of logger.levels) {
+    logger[level] = function () {
+      if (!this.dev || typeof console === 'undefined') return
+      var args = Array.from(arguments)
+      args.unshift(`[${this.prefix} :: ${level}]`.toUpperCase())
+      console[level].apply(console, args)
+    }
+  }
+  Vue.prototype.$log = logger
+  Vue.log = logger
+}
+export default vLogger
+</code></pre>
+
+<h2 id="3-使用">3、使用</h2>
+
+<pre><code class="language-js">import vueLogger from './logger'
+Vue.use(vueLogger, { prefix: new Date(), dev: true })
+
+// @test.vue
+this.$log.log('hello vue log') // =&gt; [MON DEC 05 2016 15:35:00 GMT+0800 (CST) :: LOG] hello world
+</code></pre>
+
+<p>API如下</p>
+
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>default</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>prefix</td>
+<td>string</td>
+<td>none</td>
+</tr>
+
+<tr>
+<td>dev</td>
+<td>boolean</td>
+<td>true</td>
+</tr>
+
+<tr>
+<td>levels</td>
+<td>array</td>
+<td>[&lsquo;log&rsquo;, &lsquo;warn&rsquo;, &lsquo;default&rsquo;]</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="4-编写测试用例">4、编写测试用例</h2>
+
+<p>使用jasmine，这里以测试参数 options 为例子</p>
+
+<pre><code class="language-js">// 测试 参数 level
+import Vue from 'vue'
+import Logger from '../../src/index.js'
+
+describe(&quot;this.$log&quot;, function() {
+
+  Vue.use(Logger)
+  const vm = new Vue()
+  const str = 'hello world'
+
+  it(&quot;level log out hello world&quot;, function() {
+    expect(vm.$log.log).toBeDefined()
+    vm.$log.log = jasmine.createSpy('log')
+    vm.$log.log(str)
+    expect(vm.$log.log).toHaveBeenCalledWith(str);
+  });
+
+  it(&quot;level debug out hello world&quot;, function() {
+    expect(vm.$log.debug).toBeDefined()
+    vm.$log.debug = jasmine.createSpy('debug')
+    vm.$log.debug(str)
+    expect(vm.$log.debug).toHaveBeenCalledWith(str);
+  });
+
+  describe(&quot;Vue log&quot;, function() {
+    it(&quot;level debug out hello world&quot;, function() {
+      expect(vm.$log.debug).toBeDefined()
+      Vue.log.debug = jasmine.createSpy('debug')
+      Vue.log.debug(str)
+      expect(Vue.log.debug).toHaveBeenCalledWith(str);
+    });
+  });
+});
+</code></pre>
+
+<h2 id="5-部署">5、部署</h2>
+
+<h3 id="5-1-如何选择开源许可证">5.1、如何选择开源许可证</h3>
+
+<p>参考阮老师的<a href="http://www.ruanyifeng.com/blog/2011/05/how_to_choose_free_software_licenses.html">文章</a></p>
+
+<h3 id="5-2-添加项目徽章">5.2、添加项目徽章</h3>
+
+<p>通过这些微章简单直白的了解该项目的状态。 可以在这个<a href="http://shields.io/">网站</a> 获取你想要svg，一般格式如下</p>
+
+<pre><code class="language-html">![Ci](https://img.shields.io/circleci/project/github/Lluvio/vue-logger.svg)
+</code></pre>
+
+<p>想要图标点击可跳转</p>
+
+<pre><code class="language-html">[![Ci](https://img.shields.io/circleci/project/github/Lluvio/vue-logger.svg)](https://circleci.com/gh/Lluvio/vue-logger)
+</code></pre>
+
+<h2 id="6-发布">6、发布</h2>
+
+<p>首先需要在本地添加 npm 用户</p>
+
+<pre><code class="language-bash"># 账号密码和你在 npm 官网注册的账号一致
+npm adduser
+
+# 然后登入
+npm login
+
+# 发布
+npm publish .
+</code></pre>
+
+<p>如果想要指定特定标签，参考 <a href="https://docs.npmjs.com/cli/publish">这里</a></p>
+
+<h3 id="6-1-publish-失败">6.1、Publish 失败</h3>
+
+<p>出现以下错误，有可能是代理地址错误，每个命令后都需要带上 <code>--registry http://registry.npmjs.org</code></p>
+
+<pre><code class="language-bash">no_perms Private mode enable, only admin can publish this module
+</code></pre>
+
+<p>如果是这个错误 <code>Tag name must not be a valid SemVer range</code> ，那么需要你重现登入</p>
+
+<h2 id="7-最后">7、最后</h2>
+
+<p>最终结果在<a href="https://github.com/Lluvio/vue-logger">这里</a>， 欢迎指正!</p>
+      </article>
+
+
+      <div id="disqus_thread"></div>
+<script>
+    (function() { 
+        var d = document, s = d.createElement('script');
+        s.src = '//lluviosblog.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+      <script id="dsq-count-scr" src="//careerboost.disqus.com/count.js" async></script>
+
+
+      <nav class="site-nav">
+  <a href="https://lluvio.github.io/blog/">Home</a>
+  <a href="https://lluvio.github.io/blog/post/">All posts</a>
+  <a href="https://lluvio.github.io/blog/index.xml">RSS</a>
+  
+  
+  
+  
+  <a href="http://github.com/lluvio">GitHub</a>
+  <span>友链 : <a href="http://bijizhan.com/">运维小哥的笔记</a></span>
+</nav>
+
+
+      <footer class="site-footer">
+  <span class="owner">©2019 Lluvio</span>
+
+  
+</footer>
+
+
+
+    </div>
+
+  
+<script src="https://lluvio.github.io/blog/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+  </body>
+</html>
